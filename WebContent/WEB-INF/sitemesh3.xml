@@ -1,0 +1,6 @@
+<sitemesh>
+	<mapping path="/*" decorator="/WEB-INF/decorators/main.jsp"/>
+	<mapping path="/compile.do" exclue="true"/>
+	<mapping path="/log.jsp" exclue="true"/>
+	<mapping path="/codecoverage.do" exclue="true"/>	
+</sitemesh>

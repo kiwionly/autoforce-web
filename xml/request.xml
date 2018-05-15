@@ -1,0 +1,12 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:tooling.soap.sforce.com">
+   <soapenv:Header>
+      <urn:SessionHeader>
+         <urn:sessionId>{session}</urn:sessionId>
+      </urn:SessionHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <urn:query>
+         <urn:queryString>{query}</urn:queryString>
+      </urn:query>
+   </soapenv:Body>
+</soapenv:Envelope>

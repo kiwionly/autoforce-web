@@ -1,0 +1,98 @@
+
+body {
+  padding-top: 70px;
+}
+
+.header {
+	padding-bottom: 20px;	
+}
+
+
+#editor { 
+   	border: 1px solid #CCC;
+    position: absolute;
+    top: 150px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#wrapper {
+	position: absolute;
+    top: 10px;
+  	width: 100%;
+    bottom: 40px;
+}
+
+#result {
+	color: red;
+}
+
+.error {
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.type {
+	color: #BE0024;
+}
+
+.name {
+	color: #224FF4;
+}
+
+.covered {
+	background-color: #D1D1FF;
+}
+
+.uncovered {
+	background-color: #FFA8A8;
+}
+
+.textarea {
+	border: 1px solid #DDD;
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+}
+
+.textarea {
+	display: block;
+}
+
+.open {
+	color: #BE0024;
+	font-size: 14px;
+}
+
+.line {
+	float: left;
+	display: inline-block;
+	padding-right: 12px;
+	text-align: right;
+	color: #AAA;
+	width: 50px;
+	background-color: #FFF;
+	border-right: 1px solid #DDD;
+}
+
+/***************************
+
+override bootstrap table border, pre
+
+***************************/
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	padding: 5px;
+}
+
+pre {
+	margin: 0px;
+	border: none;
+	border-radius: 0px;
+	padding: 0px;
+	font-size: 14px;	
+}
+
+
+

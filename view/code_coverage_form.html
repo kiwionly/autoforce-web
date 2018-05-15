@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Package Xml Generator</title>
+
+    <!-- Bootstrap -->
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+     <link href="css/toolbar.css" rel="stylesheet">
+
+</head>
+<body>    
+     <!-- Fixed navbar -->
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> 
+					<!--  this is 3 line icon of small screen -->
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>					
+				</button>
+				<a class="navbar-brand" href="login.htm">AutoForce</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class=""><a href="login.do">Login</a></li>
+					<li><a href="about.html">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+	
+		<div class="col-sm-offset-0 header">
+			<h3>Show Code Coverage</h3>
+		</div>
+		
+		<form class="form-horizontal" role="form" action="coverage.do" method="get">
+		
+			<div class="form-group">
+				<label for="type" class="col-sm-2 control-label">Select Class or Trigger</label>
+				<div class="col-sm-5">
+					<select class="form-control" id="instance" name="type" >
+						<option value="ApexClass" >ApexClass</option>
+						<option value="ApexTrigger">ApexTrigger</option>
+					</select>
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label for="prefix" class="col-sm-2 control-label">Prefix</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" id="prefix" placeholder="currently only support one prefix4" name="prefix">
+				</div>
+			</div>
+						
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-4">
+					<button type="submit" class="btn btn-default">Show Code Coverage</button>
+				</div>
+			</div>
+			
+		</form>
+
+	</div>
+	
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

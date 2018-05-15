@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Package Xml Generator</title>
+
+    <!-- Bootstrap -->
+    <link href="css/normalize.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+     <link href="css/toolbar.css" rel="stylesheet">
+
+</head>
+<body>    
+     <!-- Fixed navbar -->
+
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> 
+					<!--  this is 3 line icon of small screen -->
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>					
+				</button>
+				<a class="navbar-brand" href="login.htm">AutoForce</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class=""><a href="login.do">Login</a></li>
+					<li class=""><a href="task.do">Task List</a></li>
+					<li><a href="about.html">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+			
+		<div class="">
+			press Ctrl + S and MAGIC !! <br />			
+			<span id="result"></span> time : <span id="time">0.87</span> 									
+		</div>
+		
+		<div id="editor" class="col-sm-12">
+			
+		</div>
+		
+
+	</div>
+	
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.base64.js"></script> 
+<script src="src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="src-min/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$.base64.utf8encode = true;
+
+	var langTools = ace.require("ace/ext/language_tools");
+	
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/textmate");
+    document.getElementById('editor').style.fontSize='14px';
+    
+    editor.setOptions({
+    	enableBasicAutocompletion: true,
+    	enableLiveAutocompletion: false,
+    	enableSnippets: false
+    });
+           
+    editor.getSession().setMode("ace/mode/java");
+    
+    if("${type}" == "ApexPage")
+   		editor.getSession().setMode("ace/mode/xml");    
+    else if("${type}" == "ApexTrigger")
+   		editor.getSession().setMode("ace/mode/mysql");
+    
+    var code = $.base64.atob("${code}", true);    
+    editor.setValue(code, 1);
+    
+    editor.commands.addCommand({
+        name: 'save',
+        bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+        exec: function(editor) {
+            
+        	//send to server :)
+        	var code = editor.getValue();
+
+        	$.ajax({
+        		  url: "compile.do",
+        		  type : "POST",
+        		  dataType : "json",
+        		  data: "code="+encodeURIComponent(code),
+        		  beforeSend: function( xhr ) {
+        			  $('#result').text("send code to server...");
+        		}
+        	}).done(function(data) {
+        		
+        		var line = data.line;
+        		var msg = data.message;
+        		var time = data.time;
+        		
+        		if(line >= 0)
+        		{
+        			editor.gotoLine(line);
+        			editor.setHighlightActiveLine(true);
+        		}
+        		        		
+        		 $('#time').text(time);
+        		 $('#result').text(msg);
+        	});
+        	
+        	
+        },
+        readOnly: true // false if this command should not apply in readOnly mode
+    });
+    
+    editor.commands.addCommand({
+        name: 'autocomplete',
+        bindKey: {win: 'Ctrl-Space',  mac: 'Command-Space'},
+        exec: function(editor) {
+                    
+        	$.ajax({
+      		  url: "checkAutoComplete.do",
+      		  type : "POST",
+      		  dataType : "json",
+      		  data: "code="+encodeURIComponent(editor.getValue())+"&cursor="+editor.getCursorPosition().row,
+      		  
+      		}).done(function(data) {
+      		      		
+      			var apexCompleter = {
+      			        getCompletions: function(editor, session, pos, prefix, callback) {
+      			           
+      			        	 callback(null, data.map(function(ea) {
+			                        return {name: ea.word, value: ea.word, meta: ea.type}
+			                    }));
+      			        }
+      			    }
+      			langTools.addCompleter(apexCompleter);     			 
+      				
+      		});
+        	
+        },
+        readOnly: true // false if this command should not apply in readOnly mode
+    });
+</script>
+</body>
+</html>

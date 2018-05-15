@@ -1,0 +1,18 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apex="http://soap.sforce.com/2006/08/apex">
+   <soapenv:Header>
+      <apex:DebuggingHeader>
+         <apex:categories>
+            <apex:category>{category}</apex:category>
+            <apex:level>{level}</apex:level>
+         </apex:categories>
+      </apex:DebuggingHeader>
+      <apex:SessionHeader>
+         <apex:sessionId>{session}</apex:sessionId>
+      </apex:SessionHeader>
+   </soapenv:Header>
+   <soapenv:Body>
+      <apex:executeAnonymous>
+         <apex:String>{code}</apex:String>
+      </apex:executeAnonymous>
+   </soapenv:Body>
+</soapenv:Envelope>
